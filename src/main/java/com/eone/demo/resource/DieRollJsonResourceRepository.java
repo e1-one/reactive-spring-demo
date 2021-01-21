@@ -1,7 +1,6 @@
 package com.eone.demo.resource;
 
 import com.eone.demo.dao.ReactiveDieRollRepository;
-import com.eone.demo.dao.ReactiveGameSessionRepository;
 import com.eone.demo.model.DieRoll;
 import io.crnk.core.queryspec.QuerySpec;
 import io.crnk.core.repository.ResourceRepository;
@@ -9,8 +8,6 @@ import io.crnk.core.repository.ResourceRepositoryBase;
 import io.crnk.core.resource.list.ResourceList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
 
 @Component
 public class DieRollJsonResourceRepository extends ResourceRepositoryBase<DieRoll, String> implements ResourceRepository<DieRoll, String> {

@@ -1,7 +1,6 @@
 package com.eone.demo.resource;
 
 import com.eone.demo.dao.ReactiveGameSessionRepository;
-import com.eone.demo.model.DieRoll;
 import com.eone.demo.model.GameSession;
 import io.crnk.core.queryspec.QuerySpec;
 import io.crnk.core.repository.ResourceRepositoryBase;

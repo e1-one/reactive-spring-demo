@@ -11,16 +11,11 @@ public class DieRoll {
     @JsonApiId
     private String id;
 
-//    Long order;
-
     Integer diceValue;
 
     @JsonApiRelation(opposite = "dieRolls", lookUp = LookupIncludeBehavior.AUTOMATICALLY_WHEN_NULL,
             repositoryBehavior = RelationshipRepositoryBehavior.FORWARD_OWNER,
             serialize = SerializeType.ONLY_ID)
     private GameSession session;
-
-//    @JsonApiRelationId
-//    private String sessionId;
 
 }

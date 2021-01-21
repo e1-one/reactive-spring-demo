@@ -1,9 +1,9 @@
 package com.eone.demo.service;
 
 import com.eone.demo.dao.ReactiveDieRollRepository;
+import com.eone.demo.dao.ReactiveGameSessionRepository;
 import com.eone.demo.model.DieRoll;
 import com.eone.demo.model.GameSession;
-import com.eone.demo.dao.ReactiveGameSessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -20,7 +20,7 @@ public class GameSessionService {
     @Autowired
     private RandomService randomService;
 
-    public Mono<GameSession> createNewGameSession(){
+    public Mono<GameSession> createNewGameSession() {
         GameSession gs = new GameSession();
         return gameSessionRepository.save(gs);
     }
@@ -39,9 +39,7 @@ public class GameSessionService {
             DieRoll newDieRoll = tuple.getT2();
             SnakeAndLadderGameLogic.changeGameSessionState(gs, newDieRoll);
             return gs;
-        }).subscribe(gs -> {
-            gameSessionRepository.save(gs).subscribe();
-        });
+        }).subscribe(gs -> gameSessionRepository.save(gs).subscribe());
         return dieRoll;
     }
 }
