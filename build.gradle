@@ -1,0 +1,56 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+dependencyManagement {
+	imports {
+//		mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.0.RELEASE'
+		mavenBom "io.crnk:crnk-bom:3.3.20200920055408"
+	}
+}
+
+group = 'com.eone'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+dependencies {
+//	JSON_API
+//	compile 'io.katharsis:katharsis-spring:3.0.2'
+	compile 'io.crnk:crnk-setup-spring-boot2'
+	compile 'io.crnk:crnk-format-plain-json'
+	compile 'io.crnk:crnk-home'
+	compile 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+	compile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	compile 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+	testImplementation 'io.projectreactor:reactor-test'
+
+	testCompile 'io.crnk:crnk-client'
+	testCompile 'com.jayway.restassured:rest-assured:2.9.0'
+	testCompile 'com.jayway.restassured:json-schema-validator:2.9.0'
+	// https://mvnrepository.com/artifact/org.assertj/assertj-core
+	testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
+
+}
+
+test {
+	useJUnitPlatform()
+}
