@@ -40,8 +40,9 @@ public class GameController {
 
     @PostMapping("/sessions/{id}/dierolls")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<DieRoll> postDieRoll(@PathVariable String id, @RequestBody DieRoll dieRoll) {
-        return gameSessionService.makeMove(id);
+    public Mono<ResponseEntity<DieRoll>> postDieRoll(@PathVariable String id, @RequestBody DieRoll dieRoll) {
+        return gameSessionService.makeMove(id).map((item) -> new ResponseEntity<>(item, HttpStatus.OK))
+                .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

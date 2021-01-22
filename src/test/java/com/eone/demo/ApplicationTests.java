@@ -3,17 +3,13 @@ package com.eone.demo;
 import com.eone.demo.model.DieRoll;
 import com.eone.demo.model.GameSession;
 import com.eone.demo.model.GameSessionState;
-import com.google.common.collect.ImmutableMap;
 import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.response.ValidatableResponse;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.HttpStatus.CREATED;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ApplicationTests {
@@ -21,6 +17,10 @@ class ApplicationTests {
     @Value("${local.server.port}")
     protected int port;
 
+    @BeforeEach
+    public  void init(){
+        RestAssured.port = port;
+    }
 
     @Test
     void contextLoads() {

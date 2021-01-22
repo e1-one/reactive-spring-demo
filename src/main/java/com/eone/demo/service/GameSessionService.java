@@ -27,19 +27,22 @@ public class GameSessionService {
 
     public Mono<DieRoll> makeMove(String gameSessionId) {
         Mono<GameSession> byId = gameSessionRepository.findById(gameSessionId);
-        Mono<DieRoll> dieRoll = randomService.getRandomDice()
+
+        Mono<DieRoll> dieRoll = randomService.getRandomNumber()
                 .flatMap(diceNumber -> {
                     DieRoll dr = new DieRoll();
                     dr.setDiceValue(diceNumber);
                     return dieRollRepository.save(dr);
                 });
 
-        Mono.zip(byId, dieRoll).map(tuple -> {
-            GameSession gs = tuple.getT1();
-            DieRoll newDieRoll = tuple.getT2();
-            SnakeAndLadderGameLogic.changeGameSessionState(gs, newDieRoll);
-            return gs;
-        }).subscribe(gs -> gameSessionRepository.save(gs).subscribe());
-        return dieRoll;
+        return Mono.zip(byId, dieRoll)
+                .map(tuple -> {
+                    GameSession gs = tuple.getT1();
+                    DieRoll newDieRoll = tuple.getT2();
+                    SnakeAndLadderGameLogic.changeGameSessionState(gs, newDieRoll);
+                    gameSessionRepository.save(gs).subscribe();
+                    return newDieRoll;
+                });
     }
+
 }

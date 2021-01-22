@@ -8,7 +8,7 @@ public class SnakeAndLadderGameLogic {
 
     private static final Integer FINISH_POSITION = 100;
 
-    public static GameSession changeGameSessionState(GameSession gs, DieRoll newDieRoll) {
+    public static void changeGameSessionState(GameSession gs, DieRoll newDieRoll) {
         gs.getDieRolls().add(newDieRoll);
         Integer prev = gs.getTokenPosition();
         Integer currentPosition = calculateNewTokenPosition(prev, newDieRoll.getDiceValue());
@@ -16,7 +16,6 @@ public class SnakeAndLadderGameLogic {
         if (currentPosition.equals(FINISH_POSITION)) {
             gs.setStatus(GameSessionState.WINNER);
         }
-        return gs;
     }
 
     private static int calculateNewTokenPosition(int oldPosition, int diceValue) {

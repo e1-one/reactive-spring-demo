@@ -15,7 +15,7 @@ public class RandomService {
      *
      * @return value in [1, 6] range
      */
-    public Mono<Integer> getRandomDice() {
+    public Mono<Integer> getRandomNumber() {
         return client.get()
                 .uri("/integers/?num=1&min=1&max=6&col=1&base=10&format=plain&rnd=new")
                 .accept(MediaType.TEXT_PLAIN)
